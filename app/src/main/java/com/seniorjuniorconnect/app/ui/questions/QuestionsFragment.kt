@@ -72,6 +72,7 @@ class QuestionsFragment : Fragment() {
         db.collection("questions")
             .orderBy("timestamp", Query.Direction.DESCENDING)
             .addSnapshotListener { snapshot, _ ->
+                if (!isAdded) return@addSnapshotListener
                 if (snapshot != null) {
                     val questions = snapshot.documents.map { doc ->
                         Question(

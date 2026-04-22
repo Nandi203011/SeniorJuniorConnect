@@ -61,9 +61,15 @@ class MentorshipFragment : Fragment() {
         val field = if (currentUserRole == "senior") "seniorUid" else "juniorUid"
 
         db.collection("mentorship_requests")
-            .whereEqualTo(field, uid)
             .orderBy("timestamp", Query.Direction.DESCENDING)
-            .addSnapshotListener { snapshot, _ ->
+            .whereEqualTo(field, uid)
+            .addSnapshotListener { snapshot, error ->
+                if (!isAdded) return@addSnapshotListener
+                if (error != null) {
+                    Toast.makeText(requireContext(), "Error: ${error.message}", Toast.LENGTH_LONG)
+                        .show()
+                    return@addSnapshotListener
+                }
                 if (snapshot != null) {
                     val requests = snapshot.documents.map { doc ->
                         MentorshipRequest(
@@ -84,6 +90,7 @@ class MentorshipFragment : Fragment() {
 
     private fun updateRequestStatus(request: MentorshipRequest, status: String) {
         db.collection("mentorship_requests").document(request.id)
+
             .update("status", status)
             .addOnSuccessListener {
                 val msg = if (status == "accepted") "Request accepted! ✅" else "Request rejected"
