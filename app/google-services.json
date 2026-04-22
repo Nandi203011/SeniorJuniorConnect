@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "960158775579",
+    "project_id": "senior-juniorconnect",
+    "storage_bucket": "senior-juniorconnect.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:960158775579:android:99f0539617311e4201fbbe",
+        "android_client_info": {
+          "package_name": "com.seniorjuniorconnect.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA8WnTY8-ZO68dzipW0AkmWi0slx0DgHVk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

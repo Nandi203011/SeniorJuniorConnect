@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#1A1A2E">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="24dp">
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Setup Your Profile"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"
+            android:layout_marginTop="40dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:id="@+id/tvSubtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Help juniors know you better"
+            android:textSize="16sp"
+            android:textColor="#B0B0CC"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvTitle"/>
+
+        <!-- Bio -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilBio"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:hint="Bio (Tell juniors about yourself)"
+            app:boxStrokeColor="#6C63FF"
+            app:hintTextColor="#6C63FF"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvSubtitle">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etBio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textMultiLine"
+                android:minLines="3"
+                android:textColor="#FFFFFF"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- LinkedIn -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilLinkedIn"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:hint="LinkedIn Profile URL"
+            app:boxStrokeColor="#6C63FF"
+            app:hintTextColor="#6C63FF"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tilBio">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etLinkedIn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textUri"
+                android:textColor="#FFFFFF"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Domain Tags -->
+        <TextView
+            android:id="@+id/tvDomainTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Domain Expertise"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginTop="24dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tilLinkedIn"/>
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chipGroupDomain"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvDomainTitle">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipWebDev"
+                style="@style/Widget.MaterialComponents.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Web Dev"
+                android:textColor="#FFFFFF"
+                app:chipBackgroundColor="#2D2D44"
+                app:checkedIconVisible="true"/>
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipDSA"
+                style="@style/Widget.MaterialComponents.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="DSA"
+                android:textColor="#FFFFFF"
+                app:chipBackgroundColor="#2D2D44"
+                app:checkedIconVisible="true"/>
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipML"
+                style="@style/Widget.MaterialComponents.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ML/AI"
+                android:textColor="#FFFFFF"
+                app:chipBackgroundColor="#2D2D44"
+                app:checkedIconVisible="true"/>
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipAndroid"
+                style="@style/Widget.MaterialComponents.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Android"
+                android:textColor="#FFFFFF"
+                app:chipBackgroundColor="#2D2D44"
+                app:checkedIconVisible="true"/>
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipCorCS"
+                style="@style/Widget.MaterialComponents.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Core CS"
+                android:textColor="#FFFFFF"
+                app:chipBackgroundColor="#2D2D44"
+                app:checkedIconVisible="true"/>
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipGATE"
+                style="@style/Widget.MaterialComponents.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="GATE"
+                android:textColor="#FFFFFF"
+                app:chipBackgroundColor="#2D2D44"
+                app:checkedIconVisible="true"/>
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipMBA"
+                style="@style/Widget.MaterialComponents.Chip.Filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="MBA Prep"
+                android:textColor="#FFFFFF"
+                app:chipBackgroundColor="#2D2D44"
+                app:checkedIconVisible="true"/>
+
+        </com.google.android.material.chip.ChipGroup>
+
+        <!-- Subjects -->
+        <TextView
+            android:id="@+id/tvSubjectsTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Strong Subjects"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginTop="24dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/chipGroupDomain"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilSubjects"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:hint="e.g. DBMS, OS, Computer Networks"
+            app:boxStrokeColor="#6C63FF"
+            app:hintTextColor="#6C63FF"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvSubjectsTitle">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etSubjects"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#FFFFFF"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Placement Journey -->
+        <TextView
+            android:id="@+id/tvPlacementTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Placement Journey"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginTop="24dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tilSubjects"/>
+
+        <!-- Placed At -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilPlacedAt"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:hint="🟢 Placed at (Company name)"
+            app:boxStrokeColor="#6C63FF"
+            app:hintTextColor="#6C63FF"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvPlacementTitle">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etPlacedAt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#FFFFFF"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Final Round -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilFinalRound"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:hint="🔵 Final Round at (Company name)"
+            app:boxStrokeColor="#6C63FF"
+            app:hintTextColor="#6C63FF"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tilPlacedAt">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etFinalRound"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#FFFFFF"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Interview Round -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tilInterviewRound"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:hint="🟡 Interview Round at (Company name)"
+            app:boxStrokeColor="#6C63FF"
+            app:hintTextColor="#6C63FF"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tilFinalRound">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etInterviewRound"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#FFFFFF"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Save Button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnSaveProfile"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="32dp"
+            android:text="Save Profile"
+            android:textSize="16sp"
+            app:backgroundTint="#6C63FF"
+            app:cornerRadius="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tilInterviewRound"/>
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_marginBottom="32dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnSaveProfile"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
