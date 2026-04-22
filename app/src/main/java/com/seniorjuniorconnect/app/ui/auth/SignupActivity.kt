@@ -74,6 +74,13 @@ class SignupActivity : AppCompatActivity() {
         auth.createUserWithEmailAndPassword(email, password)
             .addOnSuccessListener { result ->
                 val uid = result.user?.uid ?: return@addOnSuccessListener
+                if (uid == null) {
+                    // ADD THESE TWO LINES
+                    binding.progressBar.visibility = View.GONE
+                    binding.btnSignup.isEnabled = true
+                    Toast.makeText(this, "Signup error. Please try again.", Toast.LENGTH_SHORT).show()
+                    return@addOnSuccessListener
+                }
 
                 // Save user data to Firestore
                 val user = hashMapOf(

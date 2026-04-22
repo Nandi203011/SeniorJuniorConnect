@@ -55,6 +55,8 @@ class HomeFragment : Fragment() {
     }
 
     private fun loadSeniors() {
+        val currentUid = com.google.firebase.auth.FirebaseAuth.getInstance().currentUser?.uid
+
         db.collection("users")
             .whereEqualTo("role", "senior")
             .get()
@@ -75,12 +77,11 @@ class HomeFragment : Fragment() {
                         finalRound = doc.getString("finalRound") ?: "",
                         interviewRound = doc.getString("interviewRound") ?: ""
                     )
-                }
+                }.filter { it.uid != currentUid } // ← exclude self
                 adapter.updateList(allSeniors)
             }
-            .addOnFailureListener {
-                Toast.makeText(requireContext(),
-                    "Failed to load seniors", Toast.LENGTH_SHORT).show()
+            .addOnFailureListener { e ->
+                Toast.makeText(requireContext(), "Error: ${e.message}", Toast.LENGTH_LONG).show()
             }
     }
 
