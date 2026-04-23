@@ -1,82 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView
+<androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="16dp"
+    android:layout_marginBottom="12dp"
     app:cardBackgroundColor="#16213E"
-    app:cardCornerRadius="16dp"
+    app:cardCornerRadius="12dp"
     app:cardElevation="4dp">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:padding="16dp">
 
         <TextView
             android:id="@+id/tvName"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Junior Name"
             android:textColor="#FFFFFF"
             android:textSize="16sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@id/tvStatus"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/tvMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:textColor="#AAAAAA"
+            android:textSize="14sp"/>
 
         <TextView
             android:id="@+id/tvStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Pending"
-            android:textColor="#FFA500"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            android:layout_marginTop="6dp"
+            android:textSize="13sp"/>
 
-        <TextView
-            android:id="@+id/tvMessage"
-            android:layout_width="0dp"
+        <!-- Accept / Reject buttons (senior only, pending only) -->
+        <LinearLayout
+            android:id="@+id/layoutActions"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Message goes here"
-            android:textColor="#B0B0CC"
-            android:textSize="13sp"
-            android:layout_marginTop="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvName"/>
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
 
-        <!-- Accept/Reject buttons (visible to senior) -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnAccept"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginEnd="6dp"
+                android:text="Accept"
+                android:visibility="gone"
+                app:backgroundTint="#4CAF50"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnReject"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="6dp"
+                android:text="Reject"
+                android:visibility="gone"
+                app:backgroundTint="#FF4444"/>
+
+        </LinearLayout>
+
+        <!-- Chat button (accepted only) -->
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnAccept"
-            android:layout_width="wrap_content"
+            android:id="@+id/btnChat"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:text="Accept"
-            android:textSize="13sp"
+            android:layout_marginTop="10dp"
+            android:text="💬 Open Chat"
             android:visibility="gone"
-            app:backgroundTint="#4CAF50"
-            app:cornerRadius="8dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvMessage"/>
+            app:backgroundTint="#6C63FF"/>
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnReject"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:layout_marginStart="12dp"
-            android:text="Reject"
-            android:textSize="13sp"
-            android:visibility="gone"
-            app:backgroundTint="#FF4444"
-            app:cornerRadius="8dp"
-            app:layout_constraintStart_toEndOf="@id/btnAccept"
-            app:layout_constraintTop_toBottomOf="@id/tvMessage"/>
+    </LinearLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-</com.google.android.material.card.MaterialCardView>
+</androidx.cardview.widget.CardView>

@@ -27,6 +27,9 @@
         <activity android:name=".ui.questions.AskQuestionActivity"/>
         <activity android:name=".ui.mentorship.SendRequestActivity"/>
         <activity android:name=".MainActivity"/>
+        <activity android:name=".ui.mentorship.ChatActivity"
+            android:windowSoftInputMode="adjustResize"
+            android:theme="@style/Theme.SeniorJuniorConnect.NoActionBar"/>
 
     </application>
 
