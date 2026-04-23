@@ -55,33 +55,58 @@ class HomeFragment : Fragment() {
     }
 
     private fun loadSeniors() {
-        val currentUid = com.google.firebase.auth.FirebaseAuth.getInstance().currentUser?.uid
+        val currentUid = com.google.firebase.auth.FirebaseAuth
+            .getInstance().currentUser?.uid ?: return
 
-        db.collection("users")
-            .whereEqualTo("role", "senior")
+        // First get all accepted mentorship requests by this junior
+        db.collection("mentorship_requests")
+            .whereEqualTo("juniorUid", currentUid)
+            .whereEqualTo("status", "accepted")
             .get()
-            .addOnSuccessListener { documents ->
-                allSeniors = documents.map { doc ->
-                    Senior(
-                        uid = doc.id,
-                        name = doc.getString("name") ?: "",
-                        email = doc.getString("email") ?: "",
-                        college = doc.getString("college") ?: "",
-                        branch = doc.getString("branch") ?: "",
-                        year = doc.getString("year") ?: "",
-                        bio = doc.getString("bio") ?: "",
-                        linkedIn = doc.getString("linkedIn") ?: "",
-                        domains = (doc.get("domains") as? List<String>) ?: emptyList(),
-                        subjects = doc.getString("subjects") ?: "",
-                        placedAt = doc.getString("placedAt") ?: "",
-                        finalRound = doc.getString("finalRound") ?: "",
-                        interviewRound = doc.getString("interviewRound") ?: ""
-                    )
-                }.filter { it.uid != currentUid } // ← exclude self
-                adapter.updateList(allSeniors)
+            .addOnSuccessListener { requestDocs ->
+                // Collect all senior UIDs that junior is already connected with
+                val connectedSeniorUids = requestDocs.documents
+                    .mapNotNull { it.getString("seniorUid") }
+                    .toSet()
+
+                // Now load all seniors
+                db.collection("users")
+                    .whereEqualTo("role", "senior")
+                    .get()
+                    .addOnSuccessListener { documents ->
+                        allSeniors = documents.map { doc ->
+                            Senior(
+                                uid = doc.id,
+                                name = doc.getString("name") ?: "",
+                                email = doc.getString("email") ?: "",
+                                college = doc.getString("college") ?: "",
+                                branch = doc.getString("branch") ?: "",
+                                year = doc.getString("year") ?: "",
+                                bio = doc.getString("bio") ?: "",
+                                linkedIn = doc.getString("linkedIn") ?: "",
+                                domains = (doc.get("domains") as? List<String>)
+                                    ?: emptyList(),
+                                subjects = doc.getString("subjects") ?: "",
+                                placedAt = doc.getString("placedAt") ?: "",
+                                finalRound = doc.getString("finalRound") ?: "",
+                                interviewRound = doc.getString("interviewRound") ?: ""
+                            )
+                        }.filter { senior ->
+                            // Exclude self AND already connected seniors
+                            senior.uid != currentUid &&
+                                    senior.uid !in connectedSeniorUids
+                        }
+                        adapter.updateList(allSeniors)
+                    }
+                    .addOnFailureListener { e ->
+                        Toast.makeText(requireContext(),
+                            "Error: ${e.message}", Toast.LENGTH_LONG).show()
+                    }
             }
-            .addOnFailureListener { e ->
-                Toast.makeText(requireContext(), "Error: ${e.message}", Toast.LENGTH_LONG).show()
+            .addOnFailureListener {
+                // If fetching requests fails, just load all seniors normally
+                Toast.makeText(requireContext(),
+                    "Could not filter connected seniors", Toast.LENGTH_SHORT).show()
             }
     }
 

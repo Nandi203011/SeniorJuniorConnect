@@ -19,6 +19,81 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/chipGroupFilter"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        app:singleSelection="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvTitle">
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipFilterAll"
+            style="@style/Widget.MaterialComponents.Chip.Filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="All"
+            android:textColor="#FFFFFF"
+            android:checked="true"
+            app:chipBackgroundColor="#2D2D44"
+            app:checkedIconVisible="true"/>
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipFilterPlacement"
+            style="@style/Widget.MaterialComponents.Chip.Filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Placement"
+            android:textColor="#FFFFFF"
+            app:chipBackgroundColor="#2D2D44"
+            app:checkedIconVisible="true"/>
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipFilterProjects"
+            style="@style/Widget.MaterialComponents.Chip.Filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Projects"
+            android:textColor="#FFFFFF"
+            app:chipBackgroundColor="#2D2D44"
+            app:checkedIconVisible="true"/>
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipFilterSubjects"
+            style="@style/Widget.MaterialComponents.Chip.Filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Subjects"
+            android:textColor="#FFFFFF"
+            app:chipBackgroundColor="#2D2D44"
+            app:checkedIconVisible="true"/>
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipFilterCollegeLife"
+            style="@style/Widget.MaterialComponents.Chip.Filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="College Life"
+            android:textColor="#FFFFFF"
+            app:chipBackgroundColor="#2D2D44"
+            app:checkedIconVisible="true"/>
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipFilterGeneral"
+            style="@style/Widget.MaterialComponents.Chip.Filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="General"
+            android:textColor="#FFFFFF"
+            app:chipBackgroundColor="#2D2D44"
+            app:checkedIconVisible="true"/>
+
+    </com.google.android.material.chip.ChipGroup>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvQuestions"
         android:layout_width="0dp"
@@ -28,7 +103,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvTitle"/>
+        app:layout_constraintTop_toBottomOf="@id/chipGroupFilter"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabAskQuestion"

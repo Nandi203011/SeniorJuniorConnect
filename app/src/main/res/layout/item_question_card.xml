@@ -59,7 +59,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvQuestion"/>
 
-        <!-- Answer section (visible when answered) -->
         <View
             android:id="@+id/divider"
             android:layout_width="0dp"
@@ -83,6 +82,21 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/divider"/>
+
+        <TextView
+            android:id="@+id/tvAttachmentLink"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="📎 View Attachment"
+            android:textColor="#6C63FF"
+            android:textSize="13sp"
+            android:visibility="gone"
+            android:layout_marginTop="8dp"
+            android:padding="4dp"
+            android:background="#1A1A40"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvAnswer"/>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnAnswer"

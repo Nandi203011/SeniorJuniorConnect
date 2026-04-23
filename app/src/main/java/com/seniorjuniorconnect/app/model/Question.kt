@@ -8,6 +8,8 @@ data class Question(
     val askedByUid: String = "",
     val answeredBy: String = "",
     val answer: String = "",
+    val attachmentUrl: String = "",
+    val attachmentType: String = "", // "image", "pdf", "link"
     val isAnswered: Boolean = false,
     val timestamp: Long = 0L
 )

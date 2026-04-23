@@ -1,5 +1,7 @@
 package com.seniorjuniorconnect.app.ui.questions
 
+import android.content.Intent
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,17 +39,35 @@ class QuestionsAdapter(
                 tvAnswer.visibility = View.VISIBLE
                 tvAnswer.text = "💬 ${question.answeredBy}: ${question.answer}"
                 btnAnswer.visibility = View.GONE
+
+                // Show attachment if exists
+                if (question.attachmentUrl.isNotEmpty()) {
+                    val label = when (question.attachmentType) {
+                        "image" -> "🖼️ View Image"
+                        "pdf" -> "📄 View PDF"
+                        "link" -> "🔗 Open Link"
+                        else -> "📎 View Attachment"
+                    }
+                    tvAttachmentLink.text = label
+                    tvAttachmentLink.visibility = View.VISIBLE
+                    tvAttachmentLink.setOnClickListener {
+                        val intent = Intent(Intent.ACTION_VIEW,
+                            Uri.parse(question.attachmentUrl))
+                        holder.itemView.context.startActivity(intent)
+                    }
+                } else {
+                    tvAttachmentLink.visibility = View.GONE
+                }
+
             } else {
                 tvAnsweredBadge.visibility = View.GONE
                 divider.visibility = View.GONE
                 tvAnswer.visibility = View.GONE
+                tvAttachmentLink.visibility = View.GONE
 
-                // Only seniors can answer
                 if (currentUserRole == "senior") {
                     btnAnswer.visibility = View.VISIBLE
-                    btnAnswer.setOnClickListener {
-                        onAnswerClick(question)
-                    }
+                    btnAnswer.setOnClickListener { onAnswerClick(question) }
                 } else {
                     btnAnswer.visibility = View.GONE
                 }
