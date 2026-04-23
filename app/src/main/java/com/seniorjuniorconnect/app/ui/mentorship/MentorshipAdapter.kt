@@ -1,12 +1,13 @@
 package com.seniorjuniorconnect.app.ui.mentorship
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.seniorjuniorconnect.app.databinding.ItemRequestCardBinding
 import com.seniorjuniorconnect.app.model.MentorshipRequest
-
+import com.seniorjuniorconnect.app.ui.mentorship.ChatActivity
 class MentorshipAdapter(
     private var requests: List<MentorshipRequest>,
     private val currentUserRole: String,
@@ -27,8 +28,6 @@ class MentorshipAdapter(
     override fun onBindViewHolder(holder: RequestViewHolder, position: Int) {
         val request = requests[position]
         with(holder.binding) {
-
-            // Show junior name if senior is viewing, else show senior name
             tvName.text = if (currentUserRole == "senior")
                 "From: ${request.juniorName}"
             else
@@ -36,25 +35,40 @@ class MentorshipAdapter(
 
             tvMessage.text = request.message
 
-            // Status color
             when (request.status) {
                 "accepted" -> {
                     tvStatus.text = "✅ Accepted"
                     tvStatus.setTextColor(android.graphics.Color.parseColor("#4CAF50"))
                     btnAccept.visibility = View.GONE
                     btnReject.visibility = View.GONE
+
+                    // Show chat button when accepted
+                    btnChat.visibility = View.VISIBLE
+                    btnChat.setOnClickListener {
+                        val context = holder.itemView.context
+                        val intent = Intent(context, ChatActivity::class.java).apply {
+                            putExtra("juniorUid", request.juniorUid)
+                            putExtra("juniorName", request.juniorName)
+                            putExtra("seniorUid", request.seniorUid)
+                            putExtra("seniorName", request.seniorName)
+                        }
+                        context.startActivity(intent)
+                    }
                 }
+
                 "rejected" -> {
                     tvStatus.text = "❌ Rejected"
                     tvStatus.setTextColor(android.graphics.Color.parseColor("#FF4444"))
                     btnAccept.visibility = View.GONE
                     btnReject.visibility = View.GONE
+                    btnChat.visibility = View.GONE
                 }
+
                 else -> {
                     tvStatus.text = "⏳ Pending"
                     tvStatus.setTextColor(android.graphics.Color.parseColor("#FFA500"))
+                    btnChat.visibility = View.GONE
 
-                    // Only seniors see accept/reject buttons
                     if (currentUserRole == "senior") {
                         btnAccept.visibility = View.VISIBLE
                         btnReject.visibility = View.VISIBLE
