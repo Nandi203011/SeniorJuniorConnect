@@ -78,7 +78,9 @@ class ChatAdapter(
                 tvAttachment.visibility = View.VISIBLE
                 tvAttachment.text = "📄 View PDF"
                 tvAttachment.setOnClickListener {
-                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(message.attachmentUrl))
+                    // Google Docs viewer can open any public PDF URL
+                    val googleDocsUrl = "https://docs.google.com/viewer?url=${message.attachmentUrl}"
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(googleDocsUrl))
                     it.context.startActivity(intent)
                 }
             }
@@ -95,7 +97,6 @@ class ChatAdapter(
             else -> tvAttachment.visibility = View.GONE
         }
     }
-
     override fun getItemCount() = messages.size
 
     fun updateList(newMessages: List<ChatMessage>) {
