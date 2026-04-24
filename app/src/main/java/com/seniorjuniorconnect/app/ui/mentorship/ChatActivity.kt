@@ -13,8 +13,11 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.google.firebase.storage.FirebaseStorage
+import com.seniorjuniorconnect.app.BuildConfig
 import com.seniorjuniorconnect.app.databinding.ActivityChatBinding
 import com.seniorjuniorconnect.app.model.ChatMessage
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.RequestBody.Companion.toRequestBody
 
 class ChatActivity : AppCompatActivity() {
 
@@ -121,25 +124,60 @@ class ChatActivity : AppCompatActivity() {
             showAttachmentPreview("📄 Uploading $fileName...")
             binding.btnSend.isEnabled = false
 
-            val storageRef = FirebaseStorage.getInstance()
-                .reference.child("chat_pdfs/${chatId}_${System.currentTimeMillis()}.pdf")
+            uploadToCloudinary(pdfUri, fileName)
+        }
+    }
+    private fun uploadToCloudinary(pdfUri: android.net.Uri, fileName: String) {
+        val CLOUD_NAME = BuildConfig.CLOUD_NAME
+        val UPLOAD_PRESET = BuildConfig.UPLOAD_PRESET
 
-            storageRef.putFile(pdfUri)
-                .addOnSuccessListener {
-                    storageRef.downloadUrl.addOnSuccessListener { url ->
-                        attachedPdfUrl = url.toString()
-                        attachedLink = ""
-                        attachmentType = "pdf"
-                        showAttachmentPreview("📄 $fileName ready to send")
-                        binding.btnSend.isEnabled = true
-                    }
+        Thread {
+            try {
+                val inputStream = contentResolver.openInputStream(pdfUri)
+                val bytes = inputStream?.readBytes() ?: return@Thread
+                inputStream.close()
+
+                val client = okhttp3.OkHttpClient()
+
+                val requestBody = okhttp3.MultipartBody.Builder()
+                    .setType(okhttp3.MultipartBody.FORM)
+                    .addFormDataPart(
+                        "file", fileName,
+                        bytes.toRequestBody("application/pdf".toMediaType())
+                    )
+                    .addFormDataPart("upload_preset", UPLOAD_PRESET)
+                    .addFormDataPart("resource_type", "raw") // required for PDFs
+                    .build()
+
+                val request = okhttp3.Request.Builder()
+                    .url("https://api.cloudinary.com/v1_1/$CLOUD_NAME/raw/upload")
+                    .post(requestBody)
+                    .build()
+
+                val response = client.newCall(request).execute()
+                val responseBody = response.body?.string()
+
+                val json = org.json.JSONObject(responseBody ?: "")
+                val rawUrl = json.getString("secure_url")
+// Force PDF content type by adding fl_attachment flag
+                val url = rawUrl.replace("/upload/", "/upload/fl_attachment/")
+
+                runOnUiThread {
+                    attachedPdfUrl = url
+                    attachedLink = ""
+                    attachmentType = "pdf"
+                    showAttachmentPreview("📄 $fileName ready to send")
+                    binding.btnSend.isEnabled = true
                 }
-                .addOnFailureListener {
-                    Toast.makeText(this, "PDF upload failed: ${it.message}", Toast.LENGTH_SHORT).show()
+
+            } catch (e: Exception) {
+                runOnUiThread {
+                    Toast.makeText(this, "PDF upload failed: ${e.message}", Toast.LENGTH_SHORT).show()
                     clearAttachment()
                     binding.btnSend.isEnabled = true
                 }
-        }
+            }
+        }.start()
     }
 
     private fun showAttachmentPreview(text: String) {
